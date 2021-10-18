@@ -24,23 +24,25 @@ public class RetrofitCommunication
     {
 
     }
-    public void sendToServer(Observable<Response<ServerResponse>> responseObservable, AppCompatActivity appCompatActivity,int loaderLayout,int noInternetlayout,CallBackHandler callBackHandler)
+    public void sendToServer(Observable<Response<ServerResponse>> responseObservable, AppCompatActivity appCompatActivity,int loaderLayout,int noInternetlayout,boolean isShowLoader,CallBackHandler callBackHandler)
      {
        try
        {
            if(checkInternetState(appCompatActivity,noInternetlayout))
             {
-               showProgressDialog(appCompatActivity, loaderLayout);
+               showProgressDialog(appCompatActivity, loaderLayout,isShowLoader);
                RxAPICallHelper.call(responseObservable, new RxAPICallback<Response<ServerResponse>>()
                  {
                    @Override
                    public void onSuccess(Response<ServerResponse> t)
                    {
+                       hideProgressDialog();
                        callBackHandler.getResponseBack(t.body(),null);
                    }
 
                    @Override
                    public void onFailed(Throwable throwable) {
+                       hideProgressDialog();
                        ServerResponse serverResponse=new ServerResponse();
                        serverResponse.setStatus(false);
                        serverResponse.setMsg(appCompatActivity.getResources().getString(R.string.requestnotcompleted));
@@ -51,34 +53,42 @@ public class RetrofitCommunication
        }
        catch (Exception e)
        {
+           hideProgressDialog();
            e.printStackTrace();
        }
 
     }
     Dialog progressdlg;
-    private void showProgressDialog(Context context,int loaderLayout)
+    private void showProgressDialog(Context context,int loaderLayout,boolean isShowLoader)
     {
-        if(progressdlg!=null&&progressdlg.isShowing())
+        if(isShowLoader)
         {
-            progressdlg.hide();
-        }
-        progressdlg = new Dialog(context);
-        progressdlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        progressdlg.setContentView(loaderLayout);
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = progressdlg.getWindow();
-        lp.copyFrom(window.getAttributes());
-        progressdlg.setCancelable(false);
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-        window.setAttributes(lp);
+             hideProgressDialog();
+            progressdlg = new Dialog(context);
+            progressdlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            progressdlg.setContentView(loaderLayout);
+            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            Window window = progressdlg.getWindow();
+            lp.copyFrom(window.getAttributes());
+            progressdlg.setCancelable(false);
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+            window.setAttributes(lp);
 
-        progressdlg.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
-        progressdlg.getWindow().setDimAmount(0);
-        progressdlg.show();
+            progressdlg.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+            progressdlg.getWindow().setDimAmount(0);
+            progressdlg.show();
+        }
 
     }
-    public boolean checkInternetState(Context ct,int noInternetLayout)
+    private void hideProgressDialog()
+    {
+        if (progressdlg != null && progressdlg.isShowing()) {
+            progressdlg.hide();
+        }
+    }
+
+    private boolean checkInternetState(Context ct,int noInternetLayout)
     {
         try {
 
@@ -98,7 +108,7 @@ public class RetrofitCommunication
 
 
     private Dialog internetDialog;
-    public void noInternetDialog(Context context,int noInternetlayout)
+    private void noInternetDialog(Context context,int noInternetlayout)
     {
         if(internetDialog!=null&&internetDialog.isShowing())
         {
