@@ -1,0 +1,4 @@
+<resources>
+    <string name="requestnotcompleted">Server not responding</string>
+
+</resources>
