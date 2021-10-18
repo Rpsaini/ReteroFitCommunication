@@ -15,6 +15,10 @@ import okhttp3.RequestBody;
 
 public class BuildRequestParms
 {
+    public BuildRequestParms()
+    {
+
+    }
     public RequestBody getRequestBody(String data)
     {
         return RequestBody.create(MediaType.parse("text/plain"), data);

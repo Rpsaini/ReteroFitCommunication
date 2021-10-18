@@ -20,6 +20,10 @@ import retrofit2.Response;
 
 public class RetrofitCommunication
 {
+    public RetrofitCommunication()
+    {
+
+    }
     public void sendToServer(Observable<Response<ServerResponse>> responseObservable, AppCompatActivity appCompatActivity,int loaderLayout,int noInternetlayout,CallBackHandler callBackHandler)
      {
        try
