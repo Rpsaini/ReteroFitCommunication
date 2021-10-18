@@ -3,6 +3,7 @@ import okhttp3.MultipartBody;
 public class Dummy {
 
 
+
     //  private void uploadImageToServer()
 //    {
 //        File file = new File(imagePathfront);
@@ -11,8 +12,8 @@ public class Dummy {
 //            Observable<Response<ServerResponse>> responseObservable = null;
 //            AddEventInterface contestService = ApiProduction.getInstance(this).provideService(AddEventInterface.class);
 //
-//            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-//              MultipartBody.Part body = MultipartBody.Part.createFormData("payment_receipt", file.getName(), requestBody);
+//           Request Body requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+//            MultipartBody.Part body = MultipartBody.Part.createFormData("payment_receipt", file.getName(), requestBody);
 //            RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), file.getName());
 //
 //

@@ -11,19 +11,16 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApiProduction {
-    private static String BASE_URL = "https://unitedexchange.io/";
-    public static Retrofit getRetrofit() {
-        return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-    }
+public class ApiProduction
+{
+    private static String BASE_URL = "";
     private final Context context;
     private ApiProduction(Context context) {
         this.context = context;
     }
-    public static ApiProduction getInstance(AppCompatActivity context) {
+    public static ApiProduction getInstance(AppCompatActivity context,String baseUrl)
+    {
+        BASE_URL=baseUrl;
         return new ApiProduction(context);
     }
     private Retrofit provideRestAdapter()
