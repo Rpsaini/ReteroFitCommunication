@@ -15,41 +15,21 @@ public interface AddEventInterface  {
 
     @Multipart
     @POST("fiat-deposit")
-    Observable<Response<ServerResponse>> uploadImage
-            (
-                    @Part("token") RequestBody token,
-                    @Part("DeviceToken") RequestBody DeviceToken,
-                    @Part("Version") RequestBody Version,
-                    @Part("PlatForm") RequestBody PlatForm,
-                    @Header("X-API-KEY") String apikey,
-                    @Header("Rtoken") String rtoken,
-                    @Part MultipartBody.Part image,
-                    @Part("payment_receipt") RequestBody name,
-                    @Part("currency") RequestBody currency,
-                    @Part("amount") RequestBody amount,
-                    @Part("reference") RequestBody reference,
-                    @Part("remarks") RequestBody remarks
+    Observable<Response<ServerResponse>> addData(Object...data);
 
-            );
 
-    @Multipart
-    @POST("fiat-deposit")
-    Observable<Response<ServerResponse>> Deposit(
-                    @Part("token") RequestBody token,
-                    @Part("DeviceToken") RequestBody DeviceToken,
-                    @Part("Version") RequestBody Version,
-                    @Part("PlatForm") RequestBody PlatForm,
-                    @Header("X-API-KEY") String apikey,
-                    @Header("Rtoken") String rtoken,
-                    @Part MultipartBody.Part image,
-                    @Part("payment_receipt") RequestBody name,
-                    @Part("currency") RequestBody currency,
-                    @Part("amount") RequestBody amount,
-                    @Part("reference") RequestBody reference,
-                    @Part("remarks") RequestBody remarks
-
-            );
-
+//    @Part("token") RequestBody token,
+//    @Part("DeviceToken") RequestBody DeviceToken,
+//    @Part("Version") RequestBody Version,
+//    @Part("PlatForm") RequestBody PlatForm,
+//    @Header("X-API-KEY") String apikey,
+//    @Header("Rtoken") String rtoken,
+//    @Part MultipartBody.Part image,
+//    @Part("payment_receipt") RequestBody name,
+//    @Part("currency") RequestBody currency,
+//    @Part("amount") RequestBody amount,
+//    @Part("reference") RequestBody reference,
+//    @Part("remarks") RequestBody remarks
 
 
 

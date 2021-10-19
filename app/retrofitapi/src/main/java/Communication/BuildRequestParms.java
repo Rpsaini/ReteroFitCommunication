@@ -36,9 +36,10 @@ public class BuildRequestParms
             return  imageObj;
     }
 
-    public   AddEventInterface getFinalRequest(AppCompatActivity appCompatActivity)
+    public AddEventInterface getFinalRequest(AppCompatActivity appCompatActivity,String url)
     {
-        return ApiProduction.getInstance(appCompatActivity,"").provideService(AddEventInterface.class);
+
+        return ApiProduction.getInstance(appCompatActivity,url).provideService(AddEventInterface.class);
 
     }
 
