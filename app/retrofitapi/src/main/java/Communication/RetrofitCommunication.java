@@ -24,29 +24,26 @@ public class RetrofitCommunication
     {
 
     }
-    public void sendToServer(Observable<Response<ServerResponse>> responseObservable, AppCompatActivity appCompatActivity,int loaderLayout,int noInternetlayout,boolean isShowLoader,CallBackHandler callBackHandler)
+    public void sendToServer(Observable<String> responseObservable, AppCompatActivity appCompatActivity,int loaderLayout,int noInternetlayout,boolean isShowLoader,CallBackHandler callBackHandler)
      {
        try
        {
            if(checkInternetState(appCompatActivity,noInternetlayout))
             {
                showProgressDialog(appCompatActivity, loaderLayout,isShowLoader);
-               RxAPICallHelper.call(responseObservable, new RxAPICallback<Response<ServerResponse>>()
+               RxAPICallHelper.call(responseObservable, new RxAPICallback<String>()
                  {
                    @Override
-                   public void onSuccess(Response<ServerResponse> t)
+                   public void onSuccess(String t)
                    {
                        hideProgressDialog();
-                       callBackHandler.getResponseBack(t.body(),null);
+                       callBackHandler.getResponseBack(t,null);
                    }
 
                    @Override
                    public void onFailed(Throwable throwable) {
                        hideProgressDialog();
-                       ServerResponse serverResponse=new ServerResponse();
-                       serverResponse.setStatus(false);
-                       serverResponse.setMsg(appCompatActivity.getResources().getString(R.string.requestnotcompleted));
-                       callBackHandler.getResponseBack(serverResponse,null);
+                       callBackHandler.getResponseBack("error",null);
                    }
                });
              }

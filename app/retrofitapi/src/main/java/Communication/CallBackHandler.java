@@ -6,5 +6,5 @@ import java.util.ArrayList;
 
 public interface CallBackHandler
 {
-    public void getResponseBack(ServerResponse response, ArrayList<Object> extraData);
+    public void getResponseBack(String response, ArrayList<Object> extraData);
 }

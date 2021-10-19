@@ -7,6 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.wallet.retrofitapi.api.AddEventInterface;
 import com.wallet.retrofitapi.api.ServerResponse;
 
+import java.util.ArrayList;
+
+import Communication.BuildRequestParms;
+import Communication.RetrofitCommunication;
+//import okhttp3.MultipartBody;
+
 public class MainActivity extends AppCompatActivity
   {
 
@@ -14,11 +20,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //BuildRequestParms buildRequestParms=new BuildRequestParms();
-       // RetrofitCommunication retrofitCommunication=new RetrofitCommunication();
+        BuildRequestParms buildRequestParms=new BuildRequestParms();
+        RetrofitCommunication retrofitCommunication=new RetrofitCommunication();
 
 //        ArrayList<Object> data=buildRequestParms.getMultipart("payment_receipt",file);
-//        MultipartBody.Part body=(MultipartBody.Part)data.get(0);
+//        MultipartBody.Part body=data.get(0);
 //        RequestBody filename=(RequestBody) data.get(1);
 //
 //
