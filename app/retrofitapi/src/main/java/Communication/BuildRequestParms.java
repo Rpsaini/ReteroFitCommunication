@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.wallet.retrofitapi.api.AddEventInterface;
 import com.wallet.retrofitapi.api.ApiProduction;
-import com.wallet.retrofitapi.api.ServerResponse;
 
 import java.io.File;
 import java.util.ArrayList;

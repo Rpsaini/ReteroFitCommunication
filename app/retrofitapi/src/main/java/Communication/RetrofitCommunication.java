@@ -1,7 +1,6 @@
 package Communication;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.view.Window;
@@ -10,13 +9,10 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.wallet.retrofitapi.R;
-import com.wallet.retrofitapi.api.AddEventInterface;
-import com.wallet.retrofitapi.api.ApiProduction;
 import com.wallet.retrofitapi.api.RxAPICallHelper;
 import com.wallet.retrofitapi.api.RxAPICallback;
-import com.wallet.retrofitapi.api.ServerResponse;
+
 import io.reactivex.Observable;
-import retrofit2.Response;
 
 public class RetrofitCommunication
 {
@@ -24,24 +20,26 @@ public class RetrofitCommunication
     {
 
     }
-    public void sendToServer(Observable<String> responseObservable, AppCompatActivity appCompatActivity,int loaderLayout,int noInternetlayout,boolean isShowLoader,CallBackHandler callBackHandler)
+    public void sendToServer(Observable<Object> responseObservable, AppCompatActivity appCompatActivity,int loaderLayout,int noInternetlayout,boolean isShowLoader,CallBackHandler callBackHandler)
      {
        try
        {
            if(checkInternetState(appCompatActivity,noInternetlayout))
             {
                showProgressDialog(appCompatActivity, loaderLayout,isShowLoader);
-               RxAPICallHelper.call(responseObservable, new RxAPICallback<String>()
+               RxAPICallHelper.call(responseObservable, new RxAPICallback<Object>()
                  {
                    @Override
-                   public void onSuccess(String t)
+                   public void onSuccess(Object t)
                    {
                        hideProgressDialog();
-                       callBackHandler.getResponseBack(t,null);
+                       callBackHandler.getResponseBack(t.toString(),null);
                    }
 
                    @Override
-                   public void onFailed(Throwable throwable) {
+                   public void onFailed(Throwable throwable)
+                   {
+                       System.out.println("Error==="+throwable+"==="+throwable.getMessage());
                        hideProgressDialog();
                        callBackHandler.getResponseBack("error",null);
                    }
@@ -60,7 +58,7 @@ public class RetrofitCommunication
     {
         if(isShowLoader)
         {
-             hideProgressDialog();
+            hideProgressDialog();
             progressdlg = new Dialog(context);
             progressdlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
             progressdlg.setContentView(loaderLayout);

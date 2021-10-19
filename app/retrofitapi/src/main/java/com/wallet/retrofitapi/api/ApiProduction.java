@@ -34,7 +34,8 @@ public class ApiProduction
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-    }
+
+     }
     public <S> S provideService(Class<S> serviceClass)
      {
         return provideRestAdapter().create(serviceClass);

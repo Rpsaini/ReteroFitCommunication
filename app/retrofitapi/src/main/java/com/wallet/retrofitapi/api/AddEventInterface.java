@@ -12,10 +12,15 @@ import retrofit2.http.Part;
 
 public interface AddEventInterface  {
 
-
     @Multipart
-    @POST("fiat-deposit")
-    Observable<Response<ServerResponse>> addData(Object...data);
+    @POST("applogin")
+    Observable<Object> loginApi(
+            @Part("username") RequestBody token,
+            @Part("password") RequestBody DeviceToken,
+            @Part("device") RequestBody device,
+            @Part("device_type") RequestBody device_type,
+            @Header("x-api-key") String apikey
+    );
 
 
 //    @Part("token") RequestBody token,
