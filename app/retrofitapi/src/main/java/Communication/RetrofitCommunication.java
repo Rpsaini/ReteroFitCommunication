@@ -8,11 +8,16 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.wallet.retrofitapi.R;
 import com.wallet.retrofitapi.api.RxAPICallHelper;
 import com.wallet.retrofitapi.api.RxAPICallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.reactivex.Observable;
+import retrofit2.Response;
 
 public class RetrofitCommunication
 {
@@ -20,20 +25,25 @@ public class RetrofitCommunication
     {
 
     }
-    public void sendToServer(Observable<Object> responseObservable, AppCompatActivity appCompatActivity,int loaderLayout,int noInternetlayout,boolean isShowLoader,CallBackHandler callBackHandler)
+    public void sendToServer(Observable<Response<Object>> responseObservable, AppCompatActivity appCompatActivity, int loaderLayout, int noInternetlayout, boolean isShowLoader, CallBackHandler callBackHandler)
      {
        try
        {
            if(checkInternetState(appCompatActivity,noInternetlayout))
             {
                showProgressDialog(appCompatActivity, loaderLayout,isShowLoader);
-               RxAPICallHelper.call(responseObservable, new RxAPICallback<Object>()
+               RxAPICallHelper.call(responseObservable, new RxAPICallback<Response<Object>>()
                  {
                    @Override
-                   public void onSuccess(Object t)
+                   public void onSuccess(Response<Object> t)
                    {
+                       System.out.println("inside suceess==="+new Gson().toJson(t.body()));
                        hideProgressDialog();
-                       callBackHandler.getResponseBack(t.toString(),null);
+                       try {
+                           callBackHandler.getResponseBack(new JSONObject(new Gson().toJson(t.body())),null);
+                       } catch (JSONException e) {
+                           e.printStackTrace();
+                       }
                    }
 
                    @Override
@@ -41,7 +51,7 @@ public class RetrofitCommunication
                    {
                        System.out.println("Error==="+throwable+"==="+throwable.getMessage());
                        hideProgressDialog();
-                       callBackHandler.getResponseBack("error",null);
+                       callBackHandler.getResponseBack(null,null);
                    }
                });
              }

@@ -28,10 +28,11 @@ public class ApiProduction
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
+
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(OkHttpProduction.getOkHttpClient(context, true))
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
