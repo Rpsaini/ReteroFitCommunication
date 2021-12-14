@@ -3,6 +3,7 @@ package Communication;
 import android.app.Dialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -125,13 +126,15 @@ public class RetrofitCommunication
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         Window window = internetDialog.getWindow();
         lp.copyFrom(window.getAttributes());
-        internetDialog.setCancelable(false);
+        internetDialog.setCancelable(true);
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(lp);
         internetDialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
         internetDialog.getWindow().setDimAmount(0);
         internetDialog.show();
+
+        //back to remove internet dialog
 
     }
 
